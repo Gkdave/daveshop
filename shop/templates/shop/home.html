@@ -6,9 +6,9 @@
 {% endblock title %}
 
 
-{% block content %}
+{% comment %} {% block content %}
  {{hello}}
-{% endblock content %}
+{% endblock content %} {% endcomment %}
 
   
 <!--Banner Slider-->
@@ -55,25 +55,17 @@
 {% block main-content %}
 <!-- 1st Product Slider -->
 <div class="m-3">
- <h2>ShoppingX Deals of The Day</h2>
+ <h2>ShoppingX Bottom Wears</h2>
  <!-- Slider 1 -->
  <div class="owl-carousel" id="slider1">
-  <a href="#" class="btn"><div class="item"><img src="{% static 'shop/images/product/1.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 1</span><br><span class="fs-5">Rs. 500</span></div></a>
-  <div class="item"><img src="{% static 'shop/images/product/2.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 2</span><br><span class="fs-5">Rs. 300</span></div>
-  <div class="item"><img src="{% static 'shop/images/product/3.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 3</span><br><span class="fs-5">Rs. 100</span></div>
-  <div class="item"><img src="{% static 'shop/images/product/4.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 4</span><br><span class="fs-5">Rs. 700</span></div>
-  <div class="item"><img src="{% static 'shop/images/product/5.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 5</span><br><span class="fs-5">Rs. 500</span></div>
-  <div class="item"><img src="{% static 'shop/images/product/6.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 6</span><br><span class="fs-5">Rs. 400</span></div>
-  <div class="item"><img src="{% static 'shop/images/product/7.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 7</span><br><span class="fs-5">Rs. 500</span></div>
-  <div class="item"><img src="{% static 'shop/images/product/8.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 8</span><br><span class="fs-5">Rs. 300</span></div>
-  <div class="item"><img src="{% static 'shop/images/product/9.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 9</span><br><span class="fs-5">Rs. 600</span></div>
-  <div class="item"><img src="{% static 'shop/images/product/10.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 10</span><br><span class="fs-5">Rs. 900</span></div>
-  <div class="item"><img src="{% static 'shop/images/product/11.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 11</span><br><span class="fs-5">Rs. 100</span></div>
-  <div class="item"><img src="{% static 'shop/images/product/12.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 12</span><br><span class="fs-5">Rs. 200</span></div>
+  {% for b in bottomwears  %}
+  <a href="#" class="btn"><div class="item"><img src="{{ b.product_image.url }}" alt="" height="200px"><span class="fw-bold">{{b.title}}</span><br><span class="fs-5">Rs. {{b.discounted_price}} </span></div></a>
+  {{b.title}}
+  {% endfor %}
  </div>
-</div> 
+</div>
 <!-- End 1st Product Slider -->
-
+{% comment %} {% url 'product-detail' b.id %} {% endcomment %}
 <!-- Payment Info Section -->
 <div class="container my-5">
  <div class="row">
@@ -107,7 +99,7 @@
   </div>
  </div>
 </div>
-<!-- End Payment Info Section -->
+<!-- End Payment Info Section --> 
 
 <!-- 2nd Product Slider -->
 <div class="mx-3">
