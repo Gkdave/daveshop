@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View 
-from .models import Product
+from .models import Product,Customer,Cart,OrderPlaced
 
 # def home(request):
 #     hello = "This is dave's shop "
@@ -15,8 +15,13 @@ class ProductView(View):
         return render(request,'shop/home.html',{'topwears':topwears,'bottomwears':bottomwears,'mobiles':mobiles,'laptop':laptop})
         
 
-def product_detail(request):
-    return render(request,'shop/productdetail.html')
+# def product_detail(request):
+#     return render(request,'shop/productdetail.html')
+class ProductDetailView(View):
+    def get(self,request,pk):
+        product = Product.objects.get(pk=pk)
+        return render(request,'shop/productdetail.html',{'product':product})
+        
 
 def add_to_cart(request):
     return render(request,'shop/addtocart.html')
@@ -29,8 +34,16 @@ def orders(request):
     return render(request,'shop/orders.html')
 def change_password(request):
     return render(request,'shop/changepassword.html')
-def mobile(request):
-    return render(request,'shop/mobile.html')
+def mobile(request,data=None):
+    if data == None:
+        mobiles=Product.objects.filter(category='M')
+    elif data=='Nokia' or data=='samsung':
+        mobiles=Product.objects.filter(category='M').filter(brand=data)
+    elif data=='below':
+        mobiles=Product.objects.filter(category='M').filter(discounted_price__lt=5000)
+    elif data=='above':
+        mobiles=Product.objects.filter(category='M').filter(discounted_price__gt=5000)
+    return render(request,'shop/mobile.html',{'mobiles':mobiles})
 def login(request):
     return render(request,'shop/login.html')
 def customerregistraion(request):
