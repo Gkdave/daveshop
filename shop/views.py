@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views import View 
 from .models import Product,Customer,Cart,OrderPlaced
-from .form import CustomerRegistrationForm 
+from .form import CustomerProfileForm, CustomerRegistrationForm 
 from django.contrib import messages 
 # def home(request):
 #     hello = "This is dave's shop "
@@ -30,7 +30,9 @@ def add_to_cart(request):
 def buy_now(request):
     return render(request,'shop/buynow.html')
 def address(request):
-    return render(request,'shop/address.html')
+    add = Customer.objects.filter(user=request.user)
+    
+    return render(request,'shop/address.html',{'add':add,'active':'btn-primary'})
 def orders(request):
     return render(request,'shop/orders.html')
 # def change_password(request):
@@ -74,8 +76,8 @@ def bottomwear(request,data=None):
     elif data == 'below':
         bottomwear = Product.objects.filter(category='BW').filter(discounted_price__lt=300)
     return render(request,'shop/bottomwear.html',{'bottomwear':bottomwear})
-def profile(request):
-    return render(request,'shop/profile.html')
+# def profile(request):
+#     return render(request,'shop/profile.html')
 def login(request):
     return render(request,'shop/login.html')
 def logout(request):
@@ -91,7 +93,23 @@ class CustomerRegistrationView(View):
             messages.success(request,'Congratulation Registered Successfully !!')
             form.save()
         return render(request,'shop/customerregistration.html',{'form':form})
-# def customerregistraion(request):
-#     return render(request,'shop/customerregistration.html')
+
 def checkout(request):
     return render(request,'shop/checkout.html')
+class ProfileView(View):
+    def get(self,request):
+        form = CustomerProfileForm()
+        return render(request,'shop/profile.html',{'form':form,'active':'btn-primary'})
+    def post(self,request):
+        form = CustomerProfileForm(request.POST)
+        if form.is_valid():
+            usr = request.user 
+            name=form.cleaned_data['name']
+            locality=form.cleaned_data['locality']
+            city=form.cleaned_data['city']
+            state=form.cleaned_data['state']
+            zipcode=form.cleaned_data['zipcode']
+            reg = Customer(user=usr,name=name,locality=locality,city=city,state=state,zipcode=zipcode)
+            reg.save()
+            messages.success(request,'Congratulations Profile Updated Successfully')
+        return render(request,'shop/profile.html',{'form':form,'active':'btn-primary'})
