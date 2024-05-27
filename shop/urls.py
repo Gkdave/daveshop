@@ -7,7 +7,7 @@ from . import views
 from django.contrib.auth import views as auth_views 
 
 urlpatterns = [
-    # path('',views.home),
+    
     path('',views.ProductView.as_view(),name='home'),
     path('product-detail/<int:pk>',views.ProductDetailView.as_view(),name='product-detail'),
     path('add-to-cart/',views.add_to_cart,name='add-to-cart'),
@@ -23,6 +23,8 @@ urlpatterns = [
     # path('change-password/',views.change_password,name='change-password'),
     path('mobile/',views.mobile,name='mobile'),
     path('mobile/<slug:data>',views.mobile,name='mobiledata'),
+    path('checkout/',views.checkout,name='checkout'),
+    path('paymentdone/',views.payment_done,name='paymentdone'),
     path('laptop/',views.laptop,name='laptop'),
     path('laptop/<slug:data>',views.laptop,name='laptopdata'),
     path('topwear/',views.topwear,name='topwear'),
@@ -41,6 +43,6 @@ urlpatterns = [
     path('password-reset-complete/',auth_views.PasswordResetCompleteView.as_view(template_name='shop/Password_reset_complete.html'),name="password_reset_complete"),
     
     path('registration/',views.CustomerRegistrationView.as_view(),name='customerregistration'),
-    path('checkout/',views.checkout,name='checkout'),
+    
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
  
