@@ -35,7 +35,7 @@ STATE_CHOICES = (('Andaman &Nicobar Islands','Andaman &Nicobar Islands'),
 )
 
 class Customer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     locality=models.CharField(max_length=200)
     city=models.CharField(max_length=200)
