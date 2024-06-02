@@ -1,7 +1,12 @@
 from django.urls import path
 from django.conf.urls.static import static 
 from django.conf import settings
+<<<<<<< HEAD
 from shop.forms import LoginForm ,MyPasswordChangeForm,MyPasswordResetForm,MySetPasswordForm 
+=======
+
+from shop.form import LoginForm ,MyPasswordChangeForm,MyPasswordResetForm,MySetPasswordForm 
+>>>>>>> 238eb6a2b9b0d5a1832138bb78a1e41d38c2131c
 from . import views 
 from django.contrib.auth import views as auth_views 
 
@@ -14,7 +19,10 @@ urlpatterns = [
     path('pluscart/',views.plus_cart),
     path('minuscart/',views.minus_cart),
     path('removecart/',views.remove_cart),
+<<<<<<< HEAD
 
+=======
+>>>>>>> 238eb6a2b9b0d5a1832138bb78a1e41d38c2131c
     path('buy/',views.buy_now,name='buy-now'),
 
     path('profile/',views.ProfileView.as_view(),name='profile'),
@@ -34,8 +42,13 @@ urlpatterns = [
     path('bottomwear/<slug:data>',views.bottomwear,name='bottomweardata'),
    
     path('accounts/login/',auth_views.LoginView.as_view(template_name='shop/login.html',authentication_form=LoginForm),name='login'),
+<<<<<<< HEAD
     # path('logout/',views.logout,name='logout'),
     path('logout/',views.LogOut.as_view(),name='logout'),
+=======
+    path('logout/',views.logout,name='logout'),
+    
+>>>>>>> 238eb6a2b9b0d5a1832138bb78a1e41d38c2131c
     path('passwordchange/', auth_views.PasswordChangeView.as_view(template_name='shop/passwordchange.html',form_class=MyPasswordChangeForm,success_url='/passwordchangedone/'), name='passwordchange'),
     path('passwordchangedone/',auth_views.PasswordChangeDoneView.as_view(template_name="shop/passwordchangedone.html"),name='passwordchangedone'),
     path('password-reset/',auth_views.PasswordResetView.as_view(template_name='shop/password_reset.html',form_class=MyPasswordResetForm),name="password_reset"),
