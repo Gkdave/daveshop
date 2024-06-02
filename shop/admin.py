@@ -21,12 +21,16 @@ class CartModelAdmin(admin.ModelAdmin):
     
 @admin.register(OrderPlaced)
 class OrderPlacedModelAdmin(admin.ModelAdmin):
-<<<<<<< HEAD
+
+
     list_display = ['id','user','customer','product',
                     'quantity','ordered_date','status']
-=======
+
     list_display = ['id','user','customer','product','quantity','ordered_date','status']
->>>>>>> 238eb6a2b9b0d5a1832138bb78a1e41d38c2131c
+
+
+    list_display = ['id','user','customer','product','quantity','ordered_date','status']
+
     
     # def customer_info(self,obj):
     #     link = reverse("admin:app_customer_change",args=[obj.customer.pk])
@@ -36,10 +40,8 @@ class OrderPlacedModelAdmin(admin.ModelAdmin):
     #     link = reverse("admin:app_product_change",args=[obj.product.pk])
     #     return format_html('<a href="{}">{}</a>',link,obj.product.title)
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 238eb6a2b9b0d5a1832138bb78a1e41d38c2131c
+
     
 
 

@@ -2,7 +2,12 @@ from django.urls import path
 from django.conf.urls.static import static 
 from django.conf import settings
 <<<<<<< HEAD
+<<<<<<< HEAD
 from shop.forms import LoginForm ,MyPasswordChangeForm,MyPasswordResetForm,MySetPasswordForm 
+=======
+
+from shop.form import LoginForm ,MyPasswordChangeForm,MyPasswordResetForm,MySetPasswordForm 
+>>>>>>> 238eb6a2b9b0d5a1832138bb78a1e41d38c2131c
 =======
 
 from shop.form import LoginForm ,MyPasswordChangeForm,MyPasswordResetForm,MySetPasswordForm 
@@ -20,7 +25,10 @@ urlpatterns = [
     path('minuscart/',views.minus_cart),
     path('removecart/',views.remove_cart),
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 238eb6a2b9b0d5a1832138bb78a1e41d38c2131c
 =======
 >>>>>>> 238eb6a2b9b0d5a1832138bb78a1e41d38c2131c
     path('buy/',views.buy_now,name='buy-now'),
@@ -43,8 +51,13 @@ urlpatterns = [
    
     path('accounts/login/',auth_views.LoginView.as_view(template_name='shop/login.html',authentication_form=LoginForm),name='login'),
 <<<<<<< HEAD
+<<<<<<< HEAD
     # path('logout/',views.logout,name='logout'),
     path('logout/',views.LogOut.as_view(),name='logout'),
+=======
+    path('logout/',views.logout,name='logout'),
+    
+>>>>>>> 238eb6a2b9b0d5a1832138bb78a1e41d38c2131c
 =======
     path('logout/',views.logout,name='logout'),
     

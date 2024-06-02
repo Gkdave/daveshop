@@ -1,9 +1,15 @@
 from django.shortcuts import redirect, render
 <<<<<<< HEAD
+<<<<<<< HEAD
 from django.views import View
 from django.views import generic 
 from .models import Product,Customer,Cart,OrderPlaced
 from .forms import CustomerProfileForm, CustomerRegistrationForm 
+=======
+from django.views import View 
+from .models import Product,Customer,Cart,OrderPlaced
+from .form import CustomerProfileForm, CustomerRegistrationForm 
+>>>>>>> 238eb6a2b9b0d5a1832138bb78a1e41d38c2131c
 =======
 from django.views import View 
 from .models import Product,Customer,Cart,OrderPlaced
@@ -180,12 +186,17 @@ def bottomwear(request,data=None):
 def login(request):
     return render(request,'shop/login.html')
 <<<<<<< HEAD
+<<<<<<< HEAD
 # def logout(request):
 #     return redirect('/accounts/login/')
 class LogOut(generic.View):
     def get(self,request):
         LogOut()
         return redirect('/accounts/login/')
+=======
+def logout(request):
+    return redirect('/accounts/login/')
+>>>>>>> 238eb6a2b9b0d5a1832138bb78a1e41d38c2131c
 =======
 def logout(request):
     return redirect('/accounts/login/')
