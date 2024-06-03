@@ -79,4 +79,4 @@ $('.remove-cart').click(function () {
             eml.parentNode.parentNode.parentNode.parentNode.remove()
         }
     })
-})
+});

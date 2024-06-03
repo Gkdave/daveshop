@@ -5,21 +5,14 @@ from django.views import View
 from django.views import generic 
 from .models import Product,Customer,Cart,OrderPlaced
 from .forms import CustomerProfileForm, CustomerRegistrationForm 
-
 from django.views import View 
 from .models import Product,Customer,Cart,OrderPlaced
-from .form import CustomerProfileForm, CustomerRegistrationForm 
-
-from django.views import View 
-from .models import Product,Customer,Cart,OrderPlaced
-from .form import CustomerProfileForm, CustomerRegistrationForm 
-
 from django.contrib import messages 
 from django.db.models import Q 
 from django.http import JsonResponse 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+from django.views import generic 
 
 class ProductView(View):
     def get(self,request):
@@ -42,15 +35,19 @@ class ProductDetailView(View):
         
 @login_required
 def add_to_cart(request):
+    totalitem=0
     user = request.user
     product_id = request.GET.get('prod_id')
     #print(user,product_id)
     product= Product.objects.get(id=product_id)
     Cart(user=user,product=product).save()
-    return redirect('/cart')
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user))
+    return redirect('/cart',{'totalitem':totalitem})
 
 @login_required
 def show_cart(request):
+    totalitem = 0
     if request.user.is_authenticated:
         user=request.user
         cart = Cart.objects.filter(user=user)
@@ -60,13 +57,15 @@ def show_cart(request):
         total_amount = 0.0
         cart_product = [p for p in Cart.objects.all() if p.user == user]
         # print(cart_product)
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
         if cart_product:
-            for p in cart_product:
+            for p in cart:
                 tempamount = (p.quantity * p.product.discounted_price)
                 amount += tempamount 
                 total_amount = amount + shipping_amount 
             
-            return render(request,'shop/addtocart.html',{'carts':cart,'totalamount':total_amount,'amount':amount})
+            return render(request,'shop/addtocart.html',{'carts':cart,'totalamount':total_amount,'amount':amount,'totalitem':totalitem})
         else:
             return render(request,'shop/emptycart.html')
 def plus_cart(request):
@@ -192,13 +191,8 @@ class LogOut(generic.View):
     def get(self,request):
         LogOut()
         return redirect('/accounts/login/')
-
-def logout(request):
-    return redirect('/accounts/login/')
-
-
-def logout(request):
-    return redirect('/accounts/login/')
+# def logout(request):
+#     return redirect('/accounts/login/')
 
 class CustomerRegistrationView(View):
     def get(self,request):
@@ -214,8 +208,11 @@ class CustomerRegistrationView(View):
     
 @login_required
 def checkout(request):
+
     user=request.user
-    add =Customer.objects.filter(user=user)
+
+    add =Customer.objects.filter(user=request.user)
+
     cart_items = Cart.objects.filter(user=user)
     amount= 0.0
     shipping_amount = 70.0
@@ -225,7 +222,7 @@ def checkout(request):
             tempamount = (p.product.discounted_price * p.quantity)
             amount += tempamount
         totalamount = amount + shipping_amount 
-
+    
     return render(request,'shop/checkout.html',{'add':add,'totalamount':totalamount,'cart_items':cart_items})
 
 
